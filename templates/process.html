@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Processed Payslips</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.9.3/css/bulma.min.css">
+</head>
+<body>
+    <section class="section">
+        <div class="container">
+            <h1 class="title">Processed Payslips</h1>
+            <div class="content">
+                <ul>
+                    {% for file in files %}
+                        <li>
+                            <a href="/preview/{{ file }}" target="_blank">{{ file }}</a>
+                            <form action="/send_email" method="post" style="display:inline;">
+                                <input type="hidden" name="filename" value="{{ file }}">
+                                <input type="hidden" name="upload_filename" value="{{ request.args.get('filename') }}">
+                                <input type="text" name="employee_email" placeholder="Employee email" required>
+                                <button class="button is-small is-info" type="submit">Send Email</button>
+                            </form>
+                        </li>
+                    {% endfor %}
+                </ul>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
